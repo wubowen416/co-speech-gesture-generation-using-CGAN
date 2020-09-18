@@ -77,5 +77,5 @@ if __name__ == "__main__":
     # Specify data dir
     DATA_DIR = sys.argv[1]
 
-    # create('train')
+    create('train')
     create('test')
