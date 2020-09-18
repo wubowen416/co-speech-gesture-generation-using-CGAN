@@ -32,11 +32,12 @@ def _download_datasets(data_dir):
     _create_dir(data_dir)
 
     # prepare training data (including validation data)
-    for i in range (FIRST_DATA_ID, LAST_DATA_ID - NUM_OF_TEST):
+    for i in range(FIRST_DATA_ID, LAST_DATA_ID - NUM_OF_TEST):
         filename = "audio" + str(i) + ".wav"
         original_file_path = path.join("dataset/speech/" + filename)
         if os.path.exists(original_file_path):
-            target_file_path = path.join(data_dir + "/train/inputs/" + filename)
+            target_file_path = path.join(
+                data_dir + "/train/inputs/" + filename)
             print(target_file_path)
             shutil.copy(original_file_path, target_file_path)
         else:
@@ -44,14 +45,15 @@ def _download_datasets(data_dir):
         filename = "gesture" + str(i) + ".bvh"
         original_file_path = path.join("dataset/motion/" + filename)
         if os.path.exists(original_file_path):
-            target_file_path = path.join(data_dir + "/train/labels/" + filename)
+            target_file_path = path.join(
+                data_dir + "/train/labels/" + filename)
             print(target_file_path)
             shutil.copy(original_file_path, target_file_path)
         else:
             print(original_file_path + " does not exist")
 
     # prepare test data
-    for i in range(LAST_DATA_ID - NUM_OF_TEST, LAST_DATA_ID + 1,2):
+    for i in range(LAST_DATA_ID - NUM_OF_TEST, LAST_DATA_ID + 1, 2):
         filename = "audio" + str(i) + ".wav"
         original_file_path = path.join("dataset/speech/" + filename)
         if os.path.exists(original_file_path):
@@ -90,7 +92,8 @@ def _download_datasets(data_dir):
 
     # data augmentation
     if AUGMENT:
-        os.system('./data_processing/add_noisy_data.sh {0} {1} {2} {3}'.format("train", FIRST_DATA_ID, LAST_DATA_ID-NUM_OF_TEST, data_dir))
+        os.system('./data_processing/add_noisy_data.sh {0} {1} {2} {3}'.format(
+            "train", FIRST_DATA_ID, LAST_DATA_ID-NUM_OF_TEST, data_dir))
 
     extracted_dir = path.join(data_dir)
 
@@ -121,9 +124,12 @@ def _create_dir(data_dir):
 
 
 def _format_datasets(extracted_dir):
-    train_files = _files_to_pandas_dataframe(extracted_dir, "train", range(FIRST_DATA_ID, LAST_DATA_ID - NUM_OF_TEST))
-    test_files = _files_to_pandas_dataframe(extracted_dir, "test", range(LAST_DATA_ID - NUM_OF_TEST, LAST_DATA_ID + 1, 2))
-    dev_files = _files_to_pandas_dataframe(extracted_dir, "dev", range(LAST_DATA_ID - NUM_OF_TEST+1, LAST_DATA_ID + 1,2))
+    train_files = _files_to_pandas_dataframe(
+        extracted_dir, "train", range(FIRST_DATA_ID, LAST_DATA_ID - NUM_OF_TEST))
+    test_files = _files_to_pandas_dataframe(extracted_dir, "test", range(
+        LAST_DATA_ID - NUM_OF_TEST, LAST_DATA_ID + 1, 2))
+    dev_files = _files_to_pandas_dataframe(extracted_dir, "dev", range(
+        LAST_DATA_ID - NUM_OF_TEST+1, LAST_DATA_ID + 1, 2))
 
     return dev_files, train_files, test_files
 
@@ -133,11 +139,13 @@ def _files_to_pandas_dataframe(extracted_dir, set_name, idx_range):
     for idx in idx_range:
         # original files
         try:
-            input_file = path.abspath(path.join(extracted_dir, set_name, "inputs", "audio" + str(idx) + ".wav"))
+            input_file = path.abspath(
+                path.join(extracted_dir, set_name, "inputs", "audio" + str(idx) + ".wav"))
         except OSError:
             continue
         try:
-            label_file = path.abspath(path.join(extracted_dir, set_name, "labels", "gesture" + str(idx) + ".bvh"))
+            label_file = path.abspath(
+                path.join(extracted_dir, set_name, "labels", "gesture" + str(idx) + ".bvh"))
         except OSError:
             continue
         try:
@@ -149,7 +157,8 @@ def _files_to_pandas_dataframe(extracted_dir, set_name, idx_range):
 
         # noisy files
         try:
-            noisy_input_file = path.abspath(path.join(extracted_dir, set_name, "inputs", "naudio" + str(idx) + ".wav"))
+            noisy_input_file = path.abspath(
+                path.join(extracted_dir, set_name, "inputs", "naudio" + str(idx) + ".wav"))
         except OSError:
             continue
         try:
@@ -165,4 +174,3 @@ def _files_to_pandas_dataframe(extracted_dir, set_name, idx_range):
 
 if __name__ == "__main__":
     _split_and_format_data(sys.argv[1])
-

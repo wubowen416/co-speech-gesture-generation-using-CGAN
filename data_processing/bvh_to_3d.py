@@ -1,6 +1,7 @@
 import numpy as np
 import pyquaternion as pyq
 
+
 def rot_vec_to_abs_pos_vec(frames, nodes):
     """
     Transform vectors of the human motion from the joint angles to the absolute positions
@@ -87,6 +88,7 @@ def rot_vec_to_abs_pos_vec(frames, nodes):
         output_vectors[idx] = line.flatten()
     return output_vectors
 
+
 def create_hierarchy_nodes(hierarchy):
     """
     Create hierarchy nodes: an array of markers used in the motion capture
@@ -150,6 +152,7 @@ def create_hierarchy_nodes(hierarchy):
 
     return nodes
 
+
 def remove_velocity(data, dim=3):
     """Remove velocity values from raw prediction data
 
@@ -164,6 +167,7 @@ def remove_velocity(data, dim=3):
     starts = np.arange(0, data.shape[1], dim * 2)
     stops = np.arange(dim, data.shape[1], dim * 2)
     return np.hstack([data[:, i:j] for i, j in zip(starts, stops)])
+
 
 def select_upper_body(arr):
     """2d array"""
@@ -183,7 +187,7 @@ def vectorize_bvh(gesture_filename):
     org = f.readlines()
     frametime = org[310].split()
 
-    del org[0:311] 
+    del org[0:311]
 
     bvh_len = len(org)
 

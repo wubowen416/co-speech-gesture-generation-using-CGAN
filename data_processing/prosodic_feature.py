@@ -2,6 +2,7 @@ from pydub import AudioSegment
 import parselmouth as pm
 import numpy as np
 
+
 def average(arr, n):
     """ Replace every "n" values by their average
     Args:
@@ -12,6 +13,7 @@ def average(arr, n):
     """
     end = n * int(len(arr)/n)
     return np.mean(arr[:end].reshape(-1, n), 1)
+
 
 def derivative(x, f):
     """ Calculate numerical derivative (by FDM) of a 1d array
@@ -34,6 +36,7 @@ def derivative(x, f):
     der[0] = 0
 
     return der
+
 
 def compute_prosody(audio_filename, time_step=0.05):
     audio = pm.Sound(audio_filename)
@@ -77,7 +80,7 @@ def extract_prosodic_features(audio_filename):
 
     # Alternative prosodic features
     pitch, energy = compute_prosody(audio_filename, WINDOW_LENGTH / 1000)
-    
+
     duration = len(sound) / 1000
     t = np.arange(0, duration, WINDOW_LENGTH / 1000)
 
@@ -108,7 +111,8 @@ def extract_prosodic_features(audio_filename):
 
     # Stack them all together
     # , pitch_ind))
-    pros_feature = np.stack((energy, energy_der, energy_sder, pitch, pitch_der, pitch_sder))
+    pros_feature = np.stack(
+        (energy, energy_der, energy_sder, pitch, pitch_der, pitch_sder))
 
     # And reshape
     pros_feature = np.transpose(pros_feature)

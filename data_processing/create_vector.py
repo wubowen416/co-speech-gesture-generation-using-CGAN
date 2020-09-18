@@ -15,6 +15,7 @@ def shorten(arr1, arr2):
 
     return arr1, arr2
 
+
 def create_vectors(audio_filename, gesture_filename):
     """
     Extract features from a given pair of audio and motion files
@@ -62,7 +63,7 @@ def create(name):
 
         X.append(input_vectors)
         Y.append(output_vectors)
-        
+
     x_file_name = DATA_DIR + '/X_' + str(name) + '.p'
     y_file_name = DATA_DIR + '/Y_' + str(name) + '.p'
     with open(x_file_name, 'wb+') as f:
@@ -75,5 +76,6 @@ if __name__ == "__main__":
 
     # Specify data dir
     DATA_DIR = sys.argv[1]
-    
-    create('train')
+
+    # create('train')
+    create('test')
