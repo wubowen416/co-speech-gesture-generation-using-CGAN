@@ -1,6 +1,6 @@
 # co-speech-gesture-generation-using-CGAN
 
-Required packages: pandas4, tqdm, pydub, parselmouth, numpy, pyquaternion, pytorch
+Required packages: pandas, tqdm, pydub, parselmouth, numpy, pyquaternion, pytorch
 
 ffmpeg is required for  `example_scripts/gen_all_models.sh`
 
