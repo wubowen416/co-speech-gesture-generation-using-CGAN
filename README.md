@@ -1,4 +1,5 @@
 # co-speech-gesture-generation-using-CGAN
+https://doi.org/10.3390/electronics10030228
 
 Required packages: pandas, tqdm, pydub, parselmouth, numpy, pyquaternion, pytorch
 
