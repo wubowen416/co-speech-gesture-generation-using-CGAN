@@ -12,7 +12,7 @@ The model we selected is stored as `pre_trained_model/unroll_1000.pt`. Parameter
 1. Clone this repository
 2. Download a dataset from https://www.dropbox.com/sh/j419kp4m8hkt9nd/AAC_pIcS1b_WFBqUp5ofBG1Ia?dl=0
 3. Create a directory named `dataset `and put two directories `motion/` and `speech/` under `dataset/`
-4. `python data_processing/prepare_data.py data`  to split dataset to train, dev, and test set (as we used data in train set to scale input and output).
+4. `python data_processing/prepare_data.py data`  to split dataset to train, dev, and test set (as we used data in train set to scale input and output). Then run `python data_processing/create_vector.py`
 5.  Play with `generating.py`. Arguments of this function are: (1)wav file path, (2)output save path, (3)(optional)model parameters path. This function will process wav file and produce motion using parameters provided. You can specify the noise vector used to generate motions as one argument for function `generate_motion`. The result will be .npy format. E.g.,
 ```
 python generating.py data/test/inputs/audio1094.wav test_output.npy -mp pre_trained_model/unroll_1000.pt
